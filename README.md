@@ -1,146 +1,165 @@
-# FastAPI React Authentication System
+# Smart PDF Question Maker
 
-A comprehensive, secure, and production-ready authentication system built with FastAPI and React.
+An AI-powered application that generates questions from PDF documents for studying, exam preparation, and knowledge assessment.
 
 ## Features
 
-### Backend (FastAPI)
+- **PDF Upload & Processing**: Upload PDFs and extract content for question generation
+- **AI Question Generation**: Generate multiple-choice and descriptive questions from PDF content
+- **Question Management**: View, save, and export generated questions
+- **User Authentication**: Secure login and registration system
+- **Subscription Tiers**: Free, Pro, and Enterprise plans with different usage limits
+- **Admin Dashboard**: Monitor users, PDFs, and platform usage statistics
 
-- User registration with email verification
-- Secure login with JWT tokens stored in HTTP-only cookies
-- Refresh token mechanism
-- Password reset functionality
-- Role-based access control (RBAC)
-- Rate limiting to prevent brute force attacks
-- CSRF protection
-- Secure headers
-- Database migrations with Alembic
-
-### Frontend (React)
-
-- User registration and login forms
-- Email verification
-- Password reset
-- Protected routes based on authentication and roles
-- Responsive design
-- Context API for state management
-
-## Project Structure
-
-```
-/
-├── backend/                # FastAPI backend
-│   ├── alembic/            # Database migrations
-│   ├── app/                # Application code
-│   │   ├── api/            # API endpoints
-│   │   ├── core/           # Core functionality
-│   │   ├── db/             # Database models and connection
-│   │   ├── models/         # SQLAlchemy models
-│   │   ├── schemas/        # Pydantic schemas
-│   │   ├── services/       # Business logic
-│   │   └── utils/          # Utility functions
-│   ├── .env                # Environment variables
-│   └── requirements.txt    # Python dependencies
-│
-└── frontend/               # React frontend
-    ├── public/             # Static files
-    ├── src/                # Source code
-    │   ├── components/     # Reusable components
-    │   ├── context/        # Context providers
-    │   ├── hooks/          # Custom hooks
-    │   ├── pages/          # Page components
-    │   ├── services/       # API services
-    │   ├── styles/         # CSS styles
-    │   └── utils/          # Utility functions
-    └── package.json        # Node.js dependencies
-```
-
-## Requirements
-
-- Python 3.8+
-- Node.js 14+
-- MySQL 5.7+
-- Redis 6.0+
-
-## Installation
+## Technology Stack
 
 ### Backend
 
-1. Navigate to the backend directory:
+- FastAPI (Python web framework)
+- PostgreSQL (Database)
+- LangChain (AI framework)
+- Hugging Face Models (AI text generation)
+- JWT Authentication
 
-   ```bash
-   cd backend
+### Frontend
+
+- React.js
+- React Router
+- Context API for state management
+- Modern CSS with responsive design
+
+## Installation
+
+### Prerequisites
+
+- Node.js (v14+)
+- Python (v3.8+)
+- PostgreSQL
+
+### Backend Setup
+
+1. Clone the repository
+
+   ```
+   git clone https://github.com/Rathodpruthvi45/Smart_pdf_AI.git
+   cd smart-pdf-question-maker
    ```
 
-2. Create a virtual environment:
+2. Create and activate virtual environment
 
-   ```bash
+   ```
    python -m venv venv
    source venv/bin/activate  # On Windows: venv\Scripts\activate
    ```
 
-3. Install dependencies:
+3. Install dependencies
 
-   ```bash
+   ```
    pip install -r requirements.txt
    ```
 
-4. Create a MySQL database:
+4. Create a `.env` file in the backend directory with:
 
-   ```sql
-   CREATE DATABASE auth_db;
+   ```
+   DATABASE_URL=postgresql://username:password@localhost:5432/dbname
+   SECRET_KEY=your_secret_key
+   HUGGINGFACE_API_TOKEN=your_huggingface_token
    ```
 
-5. Copy `.env.example` to `.env` and update the environment variables.
-
-6. Run database migrations:
-
-   ```bash
-   alembic upgrade head
+5. Start the backend server
    ```
-
-7. Start the server:
-   ```bash
+   cd backend
    uvicorn app.main:app --reload
    ```
 
-### Frontend
+### Frontend Setup
 
-1. Navigate to the frontend directory:
+1. Navigate to the frontend directory
 
-   ```bash
+   ```
    cd frontend
    ```
 
-2. Install dependencies:
+2. Install dependencies
 
-   ```bash
+   ```
    npm install
    ```
 
-3. Start the development server:
-   ```bash
+3. Start the development server
+
+   ```
    npm start
    ```
 
-## API Documentation
+4. Open your browser and navigate to http://localhost:3000
 
-Once the backend server is running, you can access the API documentation at:
+## Usage
 
-- Swagger UI: http://localhost:8000/docs
-- ReDoc: http://localhost:8000/redoc
+1. **Account Creation**: Register for a new account or log in with existing credentials
+2. **Upload PDF**: Navigate to the upload page and select a PDF file
+3. **Select Question Types**: Choose between multiple-choice, descriptive, or both
+4. **Generate Questions**: Specify the number of questions to generate
+5. **View & Export**: Review generated questions, customize them if needed, and export
 
-## Security Features
+## API Endpoints
 
-- Passwords are hashed using bcrypt
-- JWT tokens are stored in HTTP-only, secure cookies
-- CSRF protection with double submit cookie pattern
-- Rate limiting to prevent brute force attacks
-- Secure headers to prevent common web vulnerabilities
-- Role-based access control
-- Email verification
-- Refresh token rotation
+- `POST /api/v1/upload-pdf` - Upload a PDF document
+- `POST /api/v1/generate-questions` - Generate questions from a PDF
+- `POST /api/v1/auth/register` - Register a new user
+- `POST /api/v1/auth/login` - Authenticate a user
+- `GET /api/v1/admin/dashboard` - Get admin dashboard statistics
+
+## Subscription Tiers
+
+- **Free**: Up to 3 PDFs, limited questions per month
+- **Pro**: Up to 10 PDFs, more questions per month
+- **Enterprise**: Unlimited PDFs and questions
+
+## Screenshots
+
+(Include screenshots of the application here)
+
+## Project Structure
+
+```
+smart-pdf-question-maker/
+├── backend/                 # FastAPI backend
+│   ├── app/
+│   │   ├── api/             # API endpoints
+│   │   ├── core/            # Core functionality
+│   │   ├── models/          # Data models
+│   │   └── main.py          # Entry point
+│   └── requirements.txt     # Python dependencies
+│
+├── frontend/                # React frontend
+│   ├── public/              # Static files
+│   ├── src/
+│   │   ├── components/      # Reusable components
+│   │   ├── context/         # Context providers
+│   │   ├── pages/           # Page components
+│   │   ├── styles/          # CSS files
+│   │   └── App.js           # Main component
+│   └── package.json         # Node dependencies
+│
+├── vectorstores/           # Stores processed PDF data
+└── README.md               # Project documentation
+```
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
 ## License
 
-MIT
+Distributed under the MIT License. See `LICENSE` for more information.
+
+## Contact
+
+Your Name - your.email@example.com
+
+Project Link: [https://github.com/yourusername/smart-pdf-question-maker](https://github.com/yourusername/smart-pdf-question-maker)

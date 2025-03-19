@@ -1,16 +1,15 @@
-# React Authentication Frontend
+# Smart PDF Question Maker
 
-This is a secure, production-ready authentication frontend built with React and React Router.
+An AI-powered application that generates questions from PDF documents for studying, exam preparation, and knowledge assessment.
 
 ## Features
 
-- User registration with email verification
-- Secure login with JWT tokens stored in HTTP-only cookies
-- Refresh token mechanism
-- Password reset functionality
-- Role-based access control (RBAC)
-- Protected routes
-- Responsive design
+- **PDF Upload & Processing**: Upload PDFs and extract content for question generation
+- **AI Question Generation**: Generate multiple-choice and descriptive questions from PDF content
+- **Question Management**: View, save, and export generated questions
+- **User Authentication**: Secure login and registration system
+- **Subscription Tiers**: Free, Pro, and Enterprise plans with different usage limits
+- **Admin Dashboard**: Monitor users, PDFs, and platform usage statistics
 
 ## Requirements
 
@@ -19,7 +18,10 @@ This is a secure, production-ready authentication frontend built with React and 
 
 ## Installation
 
-1. Clone the repository
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Rathodpruthvi45/Smart_pdf_AI.git
+   ```
 2. Install dependencies:
    ```bash
    npm install
@@ -32,44 +34,3 @@ This is a secure, production-ready authentication frontend built with React and 
 ## Environment Variables
 
 Create a `.env` file in the root directory with the following variables:
-
-```
-REACT_APP_API_URL=http://localhost:8000/api/v1
-```
-
-## Project Structure
-
-```
-/src
-  /components        # Reusable components
-  /context           # Context providers
-  /hooks             # Custom hooks
-  /pages             # Page components
-  /services          # API services
-  /styles            # CSS styles
-  /utils             # Utility functions
-  App.js             # Main application component
-  index.js           # Entry point
-```
-
-## Authentication Flow
-
-1. **Registration**: User registers with email, username, and password
-2. **Email Verification**: User verifies email by clicking on a link sent to their email
-3. **Login**: User logs in with email and password
-4. **Token Storage**: Access token is stored in HTTP-only cookies
-5. **Protected Routes**: Routes are protected based on authentication and roles
-6. **Token Refresh**: Access token is refreshed automatically when expired
-7. **Logout**: Cookies are cleared on logout
-
-## Security Features
-
-- HTTP-only cookies for token storage (prevents XSS attacks)
-- CSRF protection with double submit cookie pattern
-- Role-based access control
-- Form validation
-- Error handling
-
-## License
-
-MIT
