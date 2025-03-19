@@ -4,12 +4,12 @@ import {
   Routes,
   Route,
   Navigate,
+  Outlet,
 } from "react-router-dom";
 import { AuthProvider, useAuth } from "./context/AuthContext";
 
 // Components
 import Layout from "./components/Layout";
-import ProtectedRoute from "./components/ProtectedRoute";
 
 // Pages
 import Home from "./pages/Home";
@@ -28,33 +28,33 @@ import Quations_types from "./pages/Quations_types";
 import Subscription from "./pages/Subscription";
 import QuestionTypes from "./pages/QuestionTypes";
 
+
 import AdminDashboard from "./pages/AdminDashboard";
 
 // Styles
 import "./styles/index.css";
 
-// Protected route component
-const ProtectedRouteComponent = ({ children }) => {
+// Protected route wrapper
+const ProtectedRouteComponent = () => {
   const { authToken } = useAuth();
 
   if (!authToken) {
-    return <Navigate to="/login" />;
+    return <Navigate to="/login" replace />;
   }
 
-  return children;
+  return <Outlet />;
 };
 
-// Admin route component
-const AdminRouteComponent = ({ children }) => {
-  const { authToken, user } = useAuth();
+// Admin route wrapper
+const AdminRouteComponent = () => {
+  const { authToken, user, isAdmin } = useAuth();
 
   // Check if user is logged in and has admin privileges
-  // For demo purposes, we'll consider users with 'admin' in their email as admins
-  if (!authToken || !user || !(user.is_admin || user.email.includes("admin"))) {
-    return <Navigate to="/" />;
+  if (!authToken || !user || !isAdmin()) {
+    return <Navigate to="/unauthorized" replace />;
   }
 
-  return children;
+  return <Outlet />;
 };
 
 function App() {
@@ -81,20 +81,13 @@ function App() {
               <Route path="genrated-quations" element={<Genrated_quations />} />
               <Route path="quations-types" element={<Quations_types />} />
               <Route path="question-types" element={<QuestionTypes />} />
-             
+              
             </Route>
 
             {/* Admin Routes */}
             <Route element={<AdminRouteComponent />}>
               <Route path="admin" element={<AdminDashboard />} />
-            </Route>
-
-            {/* Moderator Routes */}
-            <Route element={<ProtectedRoute requiredRole="moderator" />}>
-              <Route
-                path="moderator"
-                element={<div>Moderator Dashboard</div>}
-              />
+              {/* Add more admin routes here if needed */}
             </Route>
 
             {/* Not Found */}

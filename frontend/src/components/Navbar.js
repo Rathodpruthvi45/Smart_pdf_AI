@@ -4,7 +4,7 @@ import { useAuth } from "../context/AuthContext";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { user, logout, isAdmin, isModerator } = useAuth();
+  const { user, authToken, logout, isAdmin, isModerator } = useAuth();
   const navigate = useNavigate();
 
   const toggleMenu = () => {
@@ -14,7 +14,7 @@ const Navbar = () => {
   const handleLogout = async () => {
     try {
       await logout();
-      navigate("/");
+      navigate("/login");
     } catch (err) {
       console.error("Logout error:", err);
     }
@@ -24,7 +24,7 @@ const Navbar = () => {
     <nav className="navbar">
       <div className="navbar-container">
         <Link to="/" className="navbar-logo">
-         PR Smart PDF AI
+          PR Smart PDF AI
         </Link>
 
         <div className="menu-icon" onClick={toggleMenu}>
@@ -38,7 +38,7 @@ const Navbar = () => {
             </Link>
           </li>
 
-          {user ? (
+          {authToken ? (
             <>
               <li className="nav-item">
                 <Link
@@ -52,11 +52,11 @@ const Navbar = () => {
 
               <li className="nav-item">
                 <Link
-                  to="/todos"
+                  to="/pdf-upload"
                   className="nav-link"
                   onClick={() => setIsOpen(false)}
                 >
-                  Todos
+                  Upload PDF
                 </Link>
               </li>
 
