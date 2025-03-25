@@ -160,6 +160,5 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 ## Contact
 
-Your Name - your.email@example.com
-
-Project Link: [https://github.com/yourusername/smart-pdf-question-maker](https://github.com/yourusername/smart-pdf-question-maker)
+Your Name - pruthvirathod4545@gmail.com
+https://my-portfolio-q28z.onrender.com/
